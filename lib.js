@@ -58,6 +58,14 @@ const getZpusobZakonceni = () => {
     return getRandomInt(0, 2) === 0 ?  'Zkouška' : 'Zápočet';
 }
 
+const getRandomTime = () => {
+    return `${getRandomInt(7, 20)}:${getRandomInt(0, 60)}:${getRandomInt(0, 60)}`;
+}
+
+const getRandomDate = () => {
+    return `${getRandomInt(1, 28)}.${getRandomInt(1, 13)}.20`;
+}
+
 const createInsertsForPredmet = () => {
     for (let index = 1; index <= 200; index++) {
         console.log(`INSERT INTO PREDMET (ID, NAZEV, POPIS, POZADAVKY, ZPUSOBZAKONCENI) VALUES (${index}, ${generateString(getRandomInt(2,10))}, ${getDescription()}, ${generateString(getRandomInt(2,30))}, ${getZpusobZakonceni()});`);
@@ -77,10 +85,27 @@ const createInsertsForUcebna = () => {
     }
 }
 
+const createInsertsForRozvrhovaAkce = () => {
+    for (let index = 1; index <= 800; index++) {
+        console.log(`INSERT INTO ROZVRHOVA_AKCE (ID, CAS, DATUM, POCETHODIN, UCITEL_ID, KATEGORIE_ID, PREDMET_ID, POCETSTUDENTU) VALUES (${
+            index}, TO_TIMESTAMP('${getRandomTime()}', 'HH24:MI:SS'), TO_DATE('${getRandomDate()}', 'DD.MM.YY'), ${
+            getRandomInt(1, 3)}, ${getRandomInt(1, 200)} , ${getRandomInt(1, 200)}, ${getRandomInt(1, 200)}, ${getRandomInt(5, 35)});`);
+    }
+}
+
+const createInsertsForRelRaUcebna = () => {
+    for (let index = 1; index <= 800; index++) {
+        console.log(`INSERT INTO REL_RA_UCEBNA (ROZVRHOVA_AKCE_ID, UCEBNA_ID) VALUES (${getRandomInt(1, 800)}, ${getRandomInt(1, 200)});`);
+    }
+}
+
+
 
 module.exports = {
     createInsertsForKategory,
     createInsertsForPredmet, 
     createInsertsForUcitel,
-    createInsertsForUcebna
+    createInsertsForUcebna,
+    createInsertsForRozvrhovaAkce,
+    createInsertsForRelRaUcebna
 }
