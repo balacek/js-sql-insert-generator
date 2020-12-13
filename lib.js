@@ -7,7 +7,7 @@ function getSemestr(){
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
-    let result = ' ';
+    let result = '';
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -46,12 +46,12 @@ function generateTitle(){
 
 const createInsertsForKategory = () => {
     for (let index = 1; index <= 200; index++) {
-        console.log(`INSERT INTO KATEGORIE (ID, DRUH, SEMESTR) VALUES (${index}, ${generateString(getRandomInt(5,20))}, ${getSemestr()});`);
+        console.log(`INSERT INTO KATEGORIE (ID, DRUH, SEMESTR) VALUES (${index}, '${generateString(getRandomInt(5,20))}', '${getSemestr()}');`);
     }
 }
 
 const getDescription = () => {
-    return getRandomInt(0, 2) === 0 ? 'NULL' : generateString(getRandomInt(20, 255)); 
+    return getRandomInt(0, 2) === 0 ? 'NULL' : `${generateString(getRandomInt(20, 255))}`; 
 }
 
 const getZpusobZakonceni = () => {
@@ -68,20 +68,20 @@ const getRandomDate = () => {
 
 const createInsertsForPredmet = () => {
     for (let index = 1; index <= 200; index++) {
-        console.log(`INSERT INTO PREDMET (ID, NAZEV, POPIS, POZADAVKY, ZPUSOBZAKONCENI) VALUES (${index}, ${generateString(getRandomInt(2,10))}, ${getDescription()}, ${generateString(getRandomInt(2,30))}, ${getZpusobZakonceni()});`);
+        console.log(`INSERT INTO PREDMET (ID, NAZEV, POPIS, POZADAVKY, ZPUSOBZAKONCENI) VALUES (${index}, '${generateString(getRandomInt(2,10))}', '${getDescription()}', '${generateString(getRandomInt(2,30))}', ${getZpusobZakonceni()});`);
     }
 }
 
 const createInsertsForUcitel = () => {
     for (let index = 1; index <= 200; index++) {
-        console.log(`INSERT INTO UCITEL (ID, JMENO, PRIJMENI, TELEFON, FAKULTA, TITULPRED, TITULZA) VALUES (${index}, ${generateName()}, ${generateName()}, ${generateTelNumber()}, ${generateString(getRandomInt(5, 25))}, ${generateTitle()}, ${generateTitle()});`);
+        console.log(`INSERT INTO UCITEL (ID, JMENO, PRIJMENI, TELEFON, FAKULTA, TITULPRED, TITULZA) VALUES (${index}, '${generateName()}', '${generateName()}', ${generateTelNumber()}, '${generateString(getRandomInt(5, 25))}', '${generateTitle()}', '${generateTitle()}');`);
     }
 }
 
 const createInsertsForUcebna = () => {
     for (let index = 1; index <= 200; index++) {
-        console.log(`INSERT INTO UCEBNA (ID, KAPACITA, NAZEV, BUDOVA, LABORATOR) VALUES (${index}, ${getRandomInt(5, 35)}, ${generateString(getRandomInt(
-        2, 15))}, ${generateString(getRandomInt(5, 20))}, ${getRandomInt(0, 2) === 0 ? '1' : '0'});`);
+        console.log(`INSERT INTO UCEBNA (ID, KAPACITA, NAZEV, BUDOVA, LABORATOR) VALUES (${index}, ${getRandomInt(5, 35)}, '${generateString(getRandomInt(
+        2, 15))}', '${generateString(getRandomInt(5, 20))}', ${getRandomInt(0, 2) === 0 ? '1' : '0'});`);
     }
 }
 
